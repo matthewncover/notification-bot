@@ -54,6 +54,13 @@ def morning_check() -> None:
         send(MORNING_MSG)
 
 
+# === TEMP DEBUG: remove after VPS smoke test ===
+def _debug_minute_ping() -> None:
+    now = datetime.now(TZ).strftime("%Y-%m-%d %H:%M:%S %Z")
+    send(f"⏱ debug ping {now}")
+# === END TEMP DEBUG ===
+
+
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
     if "--test" in sys.argv:
@@ -61,6 +68,9 @@ def main() -> None:
         return
     schedule.every().day.at("20:00", "America/Los_Angeles").do(sunday_check)
     schedule.every().day.at("09:30", "America/Los_Angeles").do(morning_check)
+    # === TEMP DEBUG: remove after VPS smoke test ===
+    schedule.every().minute.do(_debug_minute_ping)
+    # === END TEMP DEBUG ===
     logging.info("scheduler started")
     while True:
         schedule.run_pending()
