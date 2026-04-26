@@ -1,5 +1,5 @@
 services:
-  bot:
+  sweep-bot:
     build: .
     container_name: sweep-bot
     restart: unless-stopped

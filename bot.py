@@ -59,8 +59,8 @@ def main() -> None:
     if "--test" in sys.argv:
         send("✅ Test ping from sweep bot.")
         return
-    schedule.every().day.at("20:00", TZ).do(sunday_check)
-    schedule.every().day.at("09:30", TZ).do(morning_check)
+    schedule.every().day.at("20:00", "America/Los_Angeles").do(sunday_check)
+    schedule.every().day.at("09:30", "America/Los_Angeles").do(morning_check)
     logging.info("scheduler started")
     while True:
         schedule.run_pending()
